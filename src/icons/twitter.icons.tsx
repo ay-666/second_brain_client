@@ -2,7 +2,7 @@ import { IconProps, iconSizeVariants } from ".";
 
 const TwitterIcon = (props:IconProps) => {
   return (
-    <svg className={iconSizeVariants[props.size]}
+    <svg className={`${iconSizeVariants[props.size] } text-gray-500 fill-gray-500 `}
       xmlns="http://www.w3.org/2000/svg"
       x="0px"
       y="0px"

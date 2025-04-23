@@ -2,7 +2,8 @@ import { IconProps, iconSizeVariants } from ".";
 
 const YouTubeIcon = (props:IconProps) => {
   return (
-    <svg className={iconSizeVariants[props.size]}
+    <svg className={`${iconSizeVariants[props.size]} text-gray-500`}
+      fill="currentColor"
       xmlns="http://www.w3.org/2000/svg"
       x="0px"
       y="0px"

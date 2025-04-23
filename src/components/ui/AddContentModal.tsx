@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import  { useEffect, useRef } from 'react'
 import CrossIcon from '../../icons/cross.icons';
 import Input from './Input';
 import { Button } from './Button';
@@ -33,8 +33,8 @@ const AddContentModal = ({open,closeCall}:AddContentModalProps) => {
                 closeCall
                }><CrossIcon size='sm' /></div>
                <div className='flex flex-col gap-8'>
-                <Input placeholder='wruite'></Input>
-                <Input placeholder='wruite'></Input>
+                <Input placeholder='Title'></Input>
+                <Input placeholder='Desc'></Input>
                 <div className='flex justify-center'>
                     <Button variant='primary' size='sm' text='Submit' />
                 </div>
