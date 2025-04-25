@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { PlusIcon } from "../../icons/plus.icons";
 import { ShareIcon } from "../../icons/share.icons";
+import { ContentTypes } from "./AddContentModal";
 declare global {
     interface Window {
       twttr: any; // Or be more specific if you know the structure
@@ -10,7 +11,7 @@ declare global {
 interface CardProps {
   title: string;
   link: string;
-  type: "tweet" | "youtube";
+  type: ContentTypes;
 }
 
 const Card = ({ title, link, type }: CardProps) => {
@@ -21,7 +22,7 @@ const Card = ({ title, link, type }: CardProps) => {
         }   
     },[type])
   return (
-    <div className="max-w-72 border border-gray-200 rounded bg-white shadow-sm p-4 min-w-72 min-h-48">
+    <div className="max-w-72 border border-gray-200 rounded bg-white shadow-sm p-4 min-w-72 ">
       <div className="flex justify-between">
         <div className="flex items-center gap-3">
           <a href={link} target="_blank">
@@ -38,7 +39,7 @@ const Card = ({ title, link, type }: CardProps) => {
       </div>
 
       <div ref={containerRef} className="pt-4">
-        {type === "youtube" && (
+        {type === "video" && (
           <iframe
             className="w-full"
             src={link.replace("watch", "embed").replace("?v=","/")}
@@ -50,10 +51,18 @@ const Card = ({ title, link, type }: CardProps) => {
         )}
 
         {type === "tweet" && (  
-            <blockquote className="twitter-tweet w-full">
+            <blockquote className="twitter-tweet ">
               <a href={link}></a>
             </blockquote>
         )}
+
+        {
+          type=== "image" && (
+            <img className="w-fit bg-contain" alt="Img not found" src={link}>
+
+            </img>
+          )
+        }
       </div>
     </div>
   );

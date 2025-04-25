@@ -1,9 +1,10 @@
 interface InputType{
-    placeholder: string
+    placeholder: string;
+    ref: any
 }
-const Input = ({placeholder}:InputType) =>{
+const Input = ({placeholder,ref}:InputType) =>{
     return (
-        <input className="text-md outline-1 outline-slate-400 rounded-lg p-2"  type="text" placeholder={placeholder}>
+        <input ref={ref} className="text-md outline-1 outline-slate-400 rounded-lg p-3"  type="text" placeholder={placeholder}>
         </input>
     )
 }
