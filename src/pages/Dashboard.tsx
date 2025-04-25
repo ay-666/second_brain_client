@@ -15,6 +15,9 @@ import { BACKEND_URL, FRONTEND_URL } from "../config";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import useContent from "../hooks/useContent";
+import { useDispatch } from "react-redux";
+import { removeUser } from "../redux/userSlice";
+import useAuthPoll from "../hooks/useAuthPoll";
 
 export interface Content {
   id: number;
@@ -28,8 +31,11 @@ export interface Content {
 
 const Dashboard = () => {
   const [modalOpen, setModalOpen] = useState(false);
+  useAuthPoll();
   const navigate = useNavigate();
   const content = useContent();
+
+  const dispatch = useDispatch();
 
   const { data, isPending, mutate } = useMutation({
     mutationKey: ["signOut"],
@@ -41,43 +47,42 @@ const Dashboard = () => {
       //@ts-ignore
       toast(error?.response?.data?.message);
     },
-    onSuccess: (data: AxiosResponse) => {
-      //@ts-ignore
+    onSuccess: (data) => {
+      dispatch(removeUser());
       toast(data?.message);
+
       navigate("/signin");
     },
   });
 
   const brainShare = useMutation({
-    mutationKey:['brainShare'],
-    mutationFn:async () =>{
-        const res = await axios.post(`${BACKEND_URL}/brain/share`,{
-            share:true
-        }) ;
-        return res.data;
+    mutationKey: ["brainShare"],
+    mutationFn: async () => {
+      const res = await axios.post(`${BACKEND_URL}/brain/share`, {
+        share: true,
+      });
+      return res.data;
     },
-    onSuccess:(data :AxiosResponse)=>{
-        
-        //@ts-ignore
-        
-        const shareUrl = `${FRONTEND_URL}/brain/v/${data?.data?.hashString}`
-        navigator.clipboard.writeText(shareUrl)
-        toast(`Share Url Copied!`);
-    },
-    onError:(e:AxiosError)=>{
-        //@ts-ignore
-        toast(e?.response?.data?.message)
-    }
-  })
+    onSuccess: (data: AxiosResponse) => {
+      //@ts-ignore
 
+      const shareUrl = `${FRONTEND_URL}/brain/v/${data?.data?.hashString}`;
+      navigator.clipboard.writeText(shareUrl);
+      toast(`Share Url Copied!`);
+    },
+    onError: (e: AxiosError) => {
+      //@ts-ignore
+      toast(e?.response?.data?.message);
+    },
+  });
 
   const signOutUser = () => {
     mutate();
   };
 
-  const shareMyBrain =()=>{
-    brainShare.mutate()
-  }
+  const shareMyBrain = () => {
+    brainShare.mutate();
+  };
 
   return (
     <>
@@ -116,7 +121,7 @@ const Dashboard = () => {
             <div className="w-8 h-8 border-2 border-purple-500 animate-spin border-t-transparent rounded-full"></div>
           </div>
         ) : (
-          <div className=" grid grid-cols-2 md:grid-cols-3 p-4">
+          <div className=" flex flex-wrap gap-8 p-4">
             {content.data?.data.map((con: Content) => {
               return (
                 <Card

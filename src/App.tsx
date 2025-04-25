@@ -26,35 +26,21 @@ function App() {
     },
     {
       element:<PublicRoute/>,
-      path:"/signin",
+    
       children:[
         {
           path:"/signin",
           element:<SignIn/>
         },
-        
-      ]
-    },
-    {
-      element:<PublicRoute/>,
-      path:"/signup",
-      children:[
         {
           path:"/signup",
           element:<SignUp/>
-        },
+        }
         
       ]
     },
+    
     {
-      path: "/signin",
-      element: <SignIn />,
-      
-    },
-    {
-      path: "/signup",
-      element: <SignUp />,
-    },{
       path:"/brain/v/:hashString",
       element: <ViewBrain />
     },{

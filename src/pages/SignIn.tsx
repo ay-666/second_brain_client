@@ -6,10 +6,14 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import { BACKEND_URL } from "../config";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addUser } from "../redux/userSlice";
 
 const SignIn = () => {
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
@@ -24,9 +28,12 @@ const SignIn = () => {
       //@ts-ignore
       toast(error?.response?.data?.message);
     },
-    onSuccess: (data: AxiosResponse) => {
-      console.log(data);
-      //@ts-ignore
+    onSuccess: (data) => {
+      
+
+      dispatch(addUser(data.data?.user))
+      
+      
       toast(data?.message);
       navigate("/");
     },

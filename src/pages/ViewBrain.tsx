@@ -49,7 +49,7 @@ const ViewBrain = () => {
           <Button onClick={()=>{
             navigate('/')
           }} variant="secondary" text="Dashboard" size="sm" />
-          <LogoutIcon onClick={signOutUser} />
+          {/* <LogoutIcon onClick={signOutUser} /> */}
         </div>
       </div>
       {fetchedBrain.isFetching ? (
